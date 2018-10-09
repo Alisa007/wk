@@ -21,10 +21,11 @@ class CashMachine {
             } else {
                 List<int> potentialEl = memo[currentAmount - bill];
                 bool hasCurrent = currentEl != null;
+                bool hasPotential = potentialEl != null;
 
-                if (hasCurrent || potentialEl != null) {
-                  bool keepCurrent = hasCurrent && (potentialEl == null || (currentEl.length <= potentialEl.length));
-                    memo[currentAmount] = keepCurrent ? currentEl : (new List.from(potentialEl)..addAll([bill]));
+                if (hasCurrent || hasPotential) {
+                  bool keepCurrent = hasCurrent && (!hasPotential || (currentEl.length <= potentialEl.length));
+                  memo[currentAmount] = keepCurrent ? currentEl : (new List.from(potentialEl)..addAll([bill]));
                 }
             }
           }
